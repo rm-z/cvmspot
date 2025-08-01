@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"cvmspot/cmd/cli"
+	"cvmspot/cli"
 	"cvmspot/service"
 	"cvmspot/tcloud"
 	"cvmspot/utils"
