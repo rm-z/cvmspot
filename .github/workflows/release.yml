@@ -59,9 +59,9 @@ jobs:
           cd bin
           for file in *; do
             if [[ "$file" == *.exe ]]; then
-              zip "${file%.exe}.zip" "$file"
+              zip "${file%.exe}.zip" "$file" "./config-template.yaml"
             else
-              tar -czvf "$file.tar.gz" "$file"
+              tar -czvf "$file.tar.gz" "$file" "./config-template.yaml"
             fi
             rm "$file"
           done
