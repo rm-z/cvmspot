@@ -32,9 +32,9 @@ jobs:
         with:
           path: |
             ~/go/pkg/mod
-            ./go.sum
           key: ${{ runner.os }}-go-${{ hashFiles('go.sum') }}
-
+          restore-keys: |
+            ${{ runner.os }}-go-
       - name: Download dependencies
         run: |
           go mod download
@@ -47,7 +47,7 @@ jobs:
           CGO_ENABLED: 0
         run: |
           mkdir -p bin
-          OUTPUT="bin/{{.ProjectName}}-${{ matrix.os }}-${{ matrix.arch }}"
+          OUTPUT="bin/${{ github.event.repository.name }}-${{ matrix.os }}-${{ matrix.arch }}"
           if [ "${{ matrix.os }}" = "windows" ]; then
             OUTPUT="$OUTPUT.exe"
           fi
@@ -71,12 +71,6 @@ jobs:
           name: binaries
           path: bin/
           retention-days: 1 # 可选：设置 artifacts 保留天数
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v4 # 更新到 v4 版本
-        with:
-          name: binaries
-          path: bin/
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
