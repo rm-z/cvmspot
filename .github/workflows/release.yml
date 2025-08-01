@@ -8,14 +8,14 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # 明确指定 Ubuntu 24.04
     strategy:
       matrix:
-        go-version: [ '1.24.5' ] 
+        go-version: [ '1.24.5' ] # 使用 Go 1.24.5
         os: [windows, linux, darwin]
         arch: [amd64, arm64]
         exclude:
-          # 排除 darwin/arm64 组合（如果你不需要）
+          # 排除 darwin/arm64 组合
           - os: darwin
             arch: arm64
     steps:
@@ -62,22 +62,23 @@ jobs:
             else
               tar -czvf "$file.tar.gz" "$file"
             fi
-            rm "$file" # 删除原始二进制文件，只保留压缩包
+            rm "$file"
           done
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # 更新到 v4 版本
         with:
           name: binaries
           path: bin/
+          retention-days: 1 # 可选：设置 artifacts 保留天数
 
   release:
     name: Create Release
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # 统一使用 Ubuntu 24.04
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4 # 更新到 v4 版本
         with:
           name: binaries
           path: bin/
