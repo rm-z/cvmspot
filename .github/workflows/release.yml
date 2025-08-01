@@ -56,12 +56,12 @@ jobs:
 
       - name: Compress binaries
         run: |
-          cd bin && cp ../config-template.yaml . && ls -l config-template.yaml
+          cd bin
           for file in *; do
             if [[ "$file" == *.exe ]]; then
-              zip "${file%.exe}.zip" "$file" "config-template.yaml"
+              zip "${file%.exe}.zip" "$file" "../config-template.yaml"
             else
-              tar -czvf "$file.tar.gz" "$file" "config-template.yaml"
+              tar -czvf "$file.tar.gz" "$file" "../config-template.yaml"
             fi
             rm "$file"
           done
