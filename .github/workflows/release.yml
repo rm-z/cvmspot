@@ -72,11 +72,6 @@ jobs:
           path: bin/
           retention-days: 1 # 可选：设置 artifacts 保留天数
 
-  release:
-    name: Create Release
-    needs: build
-    runs-on: ubuntu-24.04 # 统一使用 Ubuntu 24.04
-    steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4 # 更新到 v4 版本
         with:
