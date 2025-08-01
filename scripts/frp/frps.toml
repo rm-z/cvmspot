@@ -1,0 +1,3 @@
+bindPort = 7000   #服务端监听端口，默认7000
+auth.method = "token"   #服务端连接身份认证，默认token
+auth.token = "7CIDqAWuyhJai4LY"   #服务端token密码
