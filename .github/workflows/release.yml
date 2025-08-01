@@ -58,7 +58,7 @@ jobs:
             OUTPUT="$OUTPUT.exe"
           fi
           if [ "${GOARCH}" = "armv7" ]; then
-            GOARM=7 go build -ldflags="-s -w" -o $OUTPUT .
+            GOARCH=arm GOARM=7 go build -ldflags="-s -w" -o $OUTPUT .
           else
             go build -ldflags="-s -w" -o $OUTPUT .
           fi
