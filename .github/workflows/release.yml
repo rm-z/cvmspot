@@ -55,13 +55,15 @@ jobs:
           go build -ldflags="-s -w" -o $OUTPUT .
 
       - name: Compress binaries
+        env: 
+          PROJECT_NAME: ${{ github.event.repository.name }}
         run: |
           cd bin
           for file in *; do
             if [[ "$file" == *.exe ]]; then
               zip "${file%.exe}.zip" "$file" "../config-template.yaml"
             else
-              tar -czvf "$file.tar.gz" "$file" "../config-template.yaml"
+             zip
             fi
             rm "$file"
           done
